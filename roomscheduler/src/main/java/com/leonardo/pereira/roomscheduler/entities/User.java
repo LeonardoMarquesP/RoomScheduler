@@ -29,12 +29,20 @@ public class User implements Serializable{
 	}
 
 	public User(Long id, String name, String document, String email, String role) {
-		super();
+		//super();
 		this.id = id;
 		this.name = name;
 		this.document = document;
 		this.email = email;
 		this.role = role;
+	}
+	
+	public User(User entity) {
+		id = entity.getId();
+		name = entity.getName();
+		document = entity.getDocument();
+		email = entity.getEmail();
+		role = entity.getRole();
 	}
 
 	public Long getId() {
