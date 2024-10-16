@@ -24,17 +24,20 @@ public class User implements Serializable{
 	private String email;
 	private String role; //ROLE_ADMIN, ROLE_USER
 	
+	private String password;
+	
 	public User() {
 		
 	}
 
-	public User(Long id, String name, String document, String email, String role) {
+	public User(Long id, String name, String document, String email, String role, String password) {
 		//super();
 		this.id = id;
 		this.name = name;
 		this.document = document;
 		this.email = email;
 		this.role = role;
+		this.password = password;
 	}
 	
 	public User(User entity) {
@@ -83,6 +86,14 @@ public class User implements Serializable{
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override
