@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,10 @@ import org.springframework.stereotype.Service;
 import com.leonardo.pereira.roomscheduler.entities.User;
 import com.leonardo.pereira.roomscheduler.entities.dto.UserDTO;
 import com.leonardo.pereira.roomscheduler.entities.dto.UserInsertDTO;
+import com.leonardo.pereira.roomscheduler.entities.dto.UserUpdateDTO;
+import com.leonardo.pereira.roomscheduler.infra.DatabaseException;
 import com.leonardo.pereira.roomscheduler.infra.EntityNotFoundException;
+import com.leonardo.pereira.roomscheduler.infra.ResourceNotFoundException;
 import com.leonardo.pereira.roomscheduler.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -76,47 +81,39 @@ public class UserService {
 
 	
 	//Update
-	
-	/* Update DsCatalog
-	 
-	 @Transactional
+	@Transactional
 	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
-		    //User entity = repository.getOne(id);
-			//User entity = repository.getById(id);
 			User entity = repository.getReferenceById(id);
 			
-		    //entity.setName(dto.getName());
 			copyDtoToEntity(dto, entity);
 			
-		    entity = repository.save(entity);
-		    return new UserDTO(entity);
-	    }
-		catch(EntityNotFoundException e) {
-	        throw new ResourceNotFoundException("Id not Found: " +id);
-	    }
+			entity = repository.save(entity);
+			
+			//Salva o novo DTO
+			return new UserDTO(entity);
+		}
+		catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not Found: " +id);
+		}
 	}
-	 */
+	
 	
 	//Delete
-	 
-	/* Delete DsCATALOG
-	 
-	 //Não tem @Transacional
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
-		}catch(EmptyResultDataAccessException e) {
+		}
+		catch(EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException("Id not Found: "+id);
 		}
 		catch(DataIntegrityViolationException e) {
-			throw new  DatabaseException("Integrity Violation");
+			throw new DatabaseException("Integrity Violation");
 		}
 	}
-	 */
 	
 	
-	private void copyDtoToEntity(UserInsertDTO dto, User entity) {
+	private void copyDtoToEntity(UserDTO dto, User entity) {
 		entity.setName(dto.getName());
 		entity.setDocument(dto.getDocument());
 		entity.setEmail(dto.getEmail());
