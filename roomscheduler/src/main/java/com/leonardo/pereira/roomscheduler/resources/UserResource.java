@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leonardo.pereira.roomscheduler.entities.User;
+import com.leonardo.pereira.roomscheduler.entities.dto.UserDTO;
 import com.leonardo.pereira.roomscheduler.services.UserService;
 
 @RestController
@@ -21,19 +21,19 @@ public class UserResource {
 	
 	//FindAll
 	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
-		List<User> list = service.findAll();
+	public ResponseEntity<List<UserDTO>> findAll() {
+		List<UserDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 		
 	}
 	
 	//FindById
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id){
+	public ResponseEntity<UserDTO> findById(@PathVariable Long id){
 		
-		User user = service.findById(id);
+		UserDTO userDto = service.findById(id);
 		//List<User> list2 = service.findById();
-		return ResponseEntity.ok().body(user);
+		return ResponseEntity.ok().body(userDto);
 		
 	}
 
