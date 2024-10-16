@@ -4,14 +4,17 @@ import java.io.Serializable;
 
 import com.leonardo.pereira.roomscheduler.entities.User;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	//@NotBlank(message = "Campo Obrigatorio")
+	@NotBlank(message = "Campo Obrigatorio")
 	private String name;
 	private String document;
-	//@Email(message = "Favor inserir um email valido")
+	@Email(message = "Favor inserir um email valido")
 	private String email;
 	private String role;
 	

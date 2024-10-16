@@ -1,4 +1,4 @@
-package com.leonardo.pereira.roomscheduler.resources;
+package com.leonardo.pereira.roomscheduler.controller;
 
 import java.net.URI;
 
@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/users")
-public class UserResource {
+public class UserController {
 	
 	@Autowired
 	private UserService service;
