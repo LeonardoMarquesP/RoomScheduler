@@ -1,12 +1,14 @@
 package com.leonardo.pereira.roomscheduler.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,6 +21,12 @@ public class Room implements Serializable{
 	private Long id;
 	private String name;
 	
+	
+	// Relacionamento inverso para a schedule
+    @OneToMany(mappedBy = "room")
+    private List<Schedule> schedules;
+    
+    
 	public Room() {
 		
 	}
@@ -43,6 +51,16 @@ public class Room implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+
+	public List<Schedule> getSchedules() {
+		return schedules;
+	}
+	
+
+	public void setSchedules(List<Schedule> schedules) {
+		this.schedules = schedules;
 	}
 
 	@Override

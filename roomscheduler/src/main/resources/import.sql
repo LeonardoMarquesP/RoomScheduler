@@ -10,3 +10,9 @@ INSERT INTO tb_room (name) VALUES ('Sala 5')
 INSERT INTO tb_room (name) VALUES ('Sala 6')
 
 
+INSERT INTO tb_schedule (scheduled_date, user_id, room_id) VALUES ('2024-10-18','1','3')
+INSERT INTO tb_schedule (scheduled_date, user_id, room_id) VALUES ('2024-11-05','2','5')
+INSERT INTO tb_schedule (scheduled_date, user_id, room_id) VALUES ('2024-12-12','3','1')
+
+
+
