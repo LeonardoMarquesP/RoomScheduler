@@ -3,8 +3,12 @@ package com.leonardo.pereira.roomscheduler.entities;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,8 +27,10 @@ public class Room implements Serializable{
 	
 	
 	// Relacionamento inverso para a schedule
-    @OneToMany(mappedBy = "room")
-    private List<Schedule> schedules;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "room")
+	@JsonManagedReference
+	private List<Schedule> schedules;
+	//private Set<Schedule> schedules;
     
     
 	public Room() {
@@ -52,12 +58,10 @@ public class Room implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 
 	public List<Schedule> getSchedules() {
 		return schedules;
 	}
-	
 
 	public void setSchedules(List<Schedule> schedules) {
 		this.schedules = schedules;

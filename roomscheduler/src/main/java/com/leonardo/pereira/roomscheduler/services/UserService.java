@@ -31,6 +31,7 @@ public class UserService {
 	//@Autowired
 	//private BCryptPasswordEncoder passwordEncoder;
 
+	
 	//@Transactional(readOnly = true)
 	@Transactional
 	public List<UserDTO> findAll() {
@@ -62,7 +63,6 @@ public class UserService {
 	}
 	
 	//Insert
-	//Ainda não Implementado
 	@Transactional
 	public UserDTO insert(UserInsertDTO dto) {
 		//Cria um User
