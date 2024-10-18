@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,13 +26,11 @@ public class Schedule {
     private LocalDate scheduledDate;
 
 	
-    // Relacionamento com a classe User (usuário)
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
     private User user;
 
-    // Relacionamento com a classe Room (sala)
     @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
     @JsonBackReference

@@ -11,12 +11,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.leonardo.pereira.roomscheduler.entities.Room;
 import com.leonardo.pereira.roomscheduler.entities.Schedule;
+import com.leonardo.pereira.roomscheduler.entities.User;
 import com.leonardo.pereira.roomscheduler.entities.dto.ScheduleDTO;
 import com.leonardo.pereira.roomscheduler.infra.DatabaseException;
 import com.leonardo.pereira.roomscheduler.infra.EntityNotFoundException;
 import com.leonardo.pereira.roomscheduler.infra.ResourceNotFoundException;
+import com.leonardo.pereira.roomscheduler.repositories.RoomRepository;
 import com.leonardo.pereira.roomscheduler.repositories.ScheduleRepository;
+import com.leonardo.pereira.roomscheduler.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -25,6 +29,12 @@ public class ScheduleService {
 	
 	@Autowired
 	private ScheduleRepository repository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private RoomRepository roomRepository;
 	
 	//@Transactional(readOnly = true)
 	@Transactional
@@ -100,8 +110,17 @@ public class ScheduleService {
 	
 	private void copyDtoToEntity(ScheduleDTO dto, Schedule entity) {
 		entity.setScheduledDate(dto.getScheduledDate());
-		entity.setUser(dto.getUser());
-		entity.setRoom(dto.getRoom());
+		
+		User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + dto.getUserId()));
+		
+		Room room = roomRepository.findById(dto.getRoomId())
+                .orElseThrow(() -> new ResourceNotFoundException("Room not found with id " + dto.getRoomId()));
+		
+		//entity.setUser(dto.getUserId);
+		//entity.setRoom(dto.getRoom());
+		entity.setUser(user);
+		entity.setRoom(room);
 	}
 	
 

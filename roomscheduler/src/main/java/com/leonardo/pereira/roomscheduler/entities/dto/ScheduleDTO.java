@@ -13,8 +13,12 @@ public class ScheduleDTO implements Serializable{
 	private Long id;
 	private LocalDate scheduledDate;
 	
-	private User user;
-	private Room room;
+	//Invez de colocar user e room no DTO como na classe normal, o DTO sera diferente, usarei so ID de room e user
+	//private User user;
+	//private Room room;
+	
+	private Long userId;
+	private Long roomId;
 	
 	public ScheduleDTO() {
 		
@@ -24,15 +28,15 @@ public class ScheduleDTO implements Serializable{
 		super();
 		this.id = id;
 		this.scheduledDate = scheduledDate;
-		this.user = user;
-		this.room = room;
+		this.userId = user.getId();
+		this.roomId = room.getId();
 	}
 	
 	public ScheduleDTO(Schedule entity) {
 		id = entity.getId();
 		scheduledDate = entity.getScheduledDate();
-		user = entity.getUser();
-		room = entity.getRoom();
+		userId = entity.getUser().getId();
+		roomId = entity.getRoom().getId();
 	}
 
 	public Long getId() {
@@ -51,22 +55,21 @@ public class ScheduleDTO implements Serializable{
 		this.scheduledDate = scheduledDate;
 	}
 
-	public User getUser() {
-		return user;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public Room getRoom() {
-		return room;
+	public Long getRoomId() {
+		return roomId;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRoomId(Long roomId) {
+		this.roomId = roomId;
 	}
-
 
 	
 	

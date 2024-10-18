@@ -3,7 +3,6 @@ package com.leonardo.pereira.roomscheduler.entities;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
