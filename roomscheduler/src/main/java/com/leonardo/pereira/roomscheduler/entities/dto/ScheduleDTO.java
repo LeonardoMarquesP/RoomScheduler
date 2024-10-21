@@ -7,6 +7,7 @@ import com.leonardo.pereira.roomscheduler.entities.Room;
 import com.leonardo.pereira.roomscheduler.entities.Schedule;
 import com.leonardo.pereira.roomscheduler.entities.User;
 
+//@ScheduleValid
 public class ScheduleDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

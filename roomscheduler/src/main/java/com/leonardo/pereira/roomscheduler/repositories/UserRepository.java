@@ -9,5 +9,6 @@ import com.leonardo.pereira.roomscheduler.entities.User;
 public interface UserRepository extends JpaRepository<User, Long>{
 
 	User findByEmail(String email);
+	
 
 }

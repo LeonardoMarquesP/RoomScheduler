@@ -6,7 +6,7 @@ import com.leonardo.pereira.roomscheduler.services.validation.UserInsertValid;
 public class UserInsertDTO extends UserDTO{
 	private static final long serialVersionUID = 1L;
 	
-	//UserInsertDTO serve porque não há request de senha no UserDTO
+	//UserInsertDTO serve porque não há request de senha no UserDTO + @UserInsertValid
 	
 	private String password;
 	

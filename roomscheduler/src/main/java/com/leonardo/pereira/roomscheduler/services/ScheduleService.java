@@ -15,6 +15,7 @@ import com.leonardo.pereira.roomscheduler.entities.Room;
 import com.leonardo.pereira.roomscheduler.entities.Schedule;
 import com.leonardo.pereira.roomscheduler.entities.User;
 import com.leonardo.pereira.roomscheduler.entities.dto.ScheduleDTO;
+import com.leonardo.pereira.roomscheduler.entities.dto.ScheduleInsertUpdateDTO;
 import com.leonardo.pereira.roomscheduler.infra.DatabaseException;
 import com.leonardo.pereira.roomscheduler.infra.EntityNotFoundException;
 import com.leonardo.pereira.roomscheduler.infra.ResourceNotFoundException;
@@ -65,7 +66,7 @@ public class ScheduleService {
 	}
 	
 	@Transactional
-	public ScheduleDTO insert(ScheduleDTO dto) {
+	public ScheduleDTO insert(ScheduleInsertUpdateDTO dto) {
 		//Cria um Schedule Vazio
 		Schedule entity = new Schedule();
 		
@@ -78,7 +79,7 @@ public class ScheduleService {
 	
 	//Update
 	@Transactional
-	public ScheduleDTO update(Long id, ScheduleDTO dto) {
+	public ScheduleDTO update(Long id, ScheduleInsertUpdateDTO dto) {
 		try {
 			Schedule entity = repository.getReferenceById(id);
 				

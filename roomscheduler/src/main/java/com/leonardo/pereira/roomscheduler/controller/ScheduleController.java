@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.leonardo.pereira.roomscheduler.entities.dto.ScheduleDTO;
+import com.leonardo.pereira.roomscheduler.entities.dto.ScheduleInsertUpdateDTO;
 import com.leonardo.pereira.roomscheduler.services.ScheduleService;
 
 import jakarta.validation.Valid;
@@ -48,7 +49,7 @@ public class ScheduleController {
 		//Insert
 		//Quando for inserir um recurso usar o Post
 		@PostMapping
-		public ResponseEntity<ScheduleDTO> insert (@Valid @RequestBody ScheduleDTO dto){
+		public ResponseEntity<ScheduleDTO> insert (@Valid @RequestBody ScheduleInsertUpdateDTO dto){
 			ScheduleDTO newDto = service.insert(dto);
 			
 			URI uri = ServletUriComponentsBuilder
@@ -61,7 +62,7 @@ public class ScheduleController {
 		
 		//Update
 		@PutMapping(value = "/{id}")
-		public ResponseEntity<ScheduleDTO> update(@PathVariable Long id, @Valid @RequestBody ScheduleDTO dto){
+		public ResponseEntity<ScheduleDTO> update(@PathVariable Long id, @Valid @RequestBody ScheduleInsertUpdateDTO dto){
 			ScheduleDTO newDto = service.update(id, dto);
 			return ResponseEntity.ok().body(newDto);
 		}
