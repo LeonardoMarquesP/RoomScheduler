@@ -1,6 +1,8 @@
 package com.leonardo.pereira.roomscheduler.entities.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.leonardo.pereira.roomscheduler.entities.User;
 
@@ -11,27 +13,32 @@ public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
 	@NotBlank(message = "Campo Obrigatorio")
 	private String name;
 	private String document;
+	
 	@Email(message = "Favor inserir um email valido")
 	private String email;
-	private String role;
+	//private String role;
 	
 	//UserInsertDTO
 	//private String password;
+	
+	//RoleDTO roles = new RoleDTO();
+	
+	Set<RoleDTO> roles = new HashSet<>();
 	
 	public UserDTO() {
 		
 	}
 
-	public UserDTO(Long id, String name, String document, String email, String role) {
+	public UserDTO(Long id, String name, String document, String email) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.document = document;
 		this.email = email;
-		this.role = role;
 	}
 	
 	public UserDTO(User entity) {
@@ -39,7 +46,8 @@ public class UserDTO implements Serializable{
 		name = entity.getName();
 		document = entity.getDocument();
 		email = entity.getEmail();
-		role = entity.getRole();
+
+		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
 
 	public Long getId() {
@@ -74,13 +82,16 @@ public class UserDTO implements Serializable{
 		this.email = email;
 	}
 
-	public String getRole() {
-		return role;
+	public Set<RoleDTO> getRoles() {
+		return roles;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+	
+
+	
+
+
+	
 	
 	
 

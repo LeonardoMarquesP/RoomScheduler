@@ -11,13 +11,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.leonardo.pereira.roomscheduler.entities.Role;
 import com.leonardo.pereira.roomscheduler.entities.User;
+import com.leonardo.pereira.roomscheduler.entities.dto.RoleDTO;
 import com.leonardo.pereira.roomscheduler.entities.dto.UserDTO;
 import com.leonardo.pereira.roomscheduler.entities.dto.UserInsertDTO;
 import com.leonardo.pereira.roomscheduler.entities.dto.UserUpdateDTO;
 import com.leonardo.pereira.roomscheduler.infra.DatabaseException;
 import com.leonardo.pereira.roomscheduler.infra.EntityNotFoundException;
 import com.leonardo.pereira.roomscheduler.infra.ResourceNotFoundException;
+import com.leonardo.pereira.roomscheduler.repositories.RoleRepository;
 import com.leonardo.pereira.roomscheduler.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -27,6 +30,9 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 	
 	//@Autowired
 	//private BCryptPasswordEncoder passwordEncoder;
@@ -65,10 +71,7 @@ public class UserService {
 	//Insert
 	@Transactional
 	public UserDTO insert(UserInsertDTO dto) {
-		//Cria um User
 		User entity = new User();
-		
-		//Jogar os dados do DTO para a Entidade (Nome, Doc, Email, Role)
 		copyDtoToEntity(dto, entity);
 		
 		//Jogar os dados do DTO para a Entidade (Senha)
@@ -85,12 +88,8 @@ public class UserService {
 	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
 			User entity = repository.getReferenceById(id);
-			
 			copyDtoToEntity(dto, entity);
-			
-			entity = repository.save(entity);
-			
-			//Salva o novo DTO
+			entity = repository.save(entity);	
 			return new UserDTO(entity);
 		}
 		catch (EntityNotFoundException e) {
@@ -117,7 +116,14 @@ public class UserService {
 		entity.setName(dto.getName());
 		entity.setDocument(dto.getDocument());
 		entity.setEmail(dto.getEmail());
-		entity.setRole(dto.getRole());
+		
+		entity.getRoles().clear();
+		for (RoleDTO roleDto : dto.getRoles()) {
+			//Deprecated: Role role = roleRepository.getOne(roleDto.getId());
+			Role role = roleRepository.getReferenceById(roleDto.getId());
+			entity.getRoles().add(role);
+		}
+		
 	}
 	
 }

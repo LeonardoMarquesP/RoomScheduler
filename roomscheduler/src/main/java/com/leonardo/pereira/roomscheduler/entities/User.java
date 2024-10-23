@@ -1,8 +1,10 @@
 package com.leonardo.pereira.roomscheduler.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -12,6 +14,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -28,9 +33,13 @@ public class User implements Serializable{
 	
 	@Column(unique = true)
 	private String email;
-	private String role; //ROLE_ADMIN, ROLE_USER
+	//private String role; //ROLE_ADMIN, ROLE_USER
 	
 	private String password;
+	
+	@ManyToMany
+	@JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
 	
 	
 	// Relacionamento inverso para a agenda
@@ -43,13 +52,12 @@ public class User implements Serializable{
 		
 	}
 
-	public User(Long id, String name, String document, String email, String role, String password) {
+	public User(Long id, String name, String document, String email, String password) {
 		//super();
 		this.id = id;
 		this.name = name;
 		this.document = document;
 		this.email = email;
-		this.role = role;
 		this.password = password;
 	}
 	
@@ -58,7 +66,6 @@ public class User implements Serializable{
 		name = entity.getName();
 		document = entity.getDocument();
 		email = entity.getEmail();
-		role = entity.getRole();
 	}
 
 	public Long getId() {
@@ -92,14 +99,6 @@ public class User implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
 	
 	public String getPassword() {
 		return password;
@@ -109,8 +108,12 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
-	
+	//Roles
+	public Set<Role> getRoles() {
+		return roles;
+	}
 
+	//Schedules 
 	public List<Schedule> getSchedules() {
 		return schedules;
 	}
@@ -135,6 +138,10 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
+	
+	
+	//
+	
 	
 	
 
